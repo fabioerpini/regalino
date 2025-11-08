@@ -1,34 +1,74 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [active, setActive] = useState<boolean | null>(null);
+
+  function startExperience() {
+    setActive(true);
+  }
+
+  const destinazioni = [
+    {
+      id: 1,
+      titolo: "Tenerife"
+    },
+    {
+      id: 2,
+      titolo: "Amsterdam"
+    },
+    {
+      id: 3,
+      titolo: "Madrid"
+    }
+
+  ]
+    
+  
+
+  
+
+
+
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {active === null && ( // prima schermata
+        <>
+          <h1>Complimenti Dottoressa!</h1>
+          <div className="card">
+            <button onClick={() => startExperience()}
+            >Scopri ora il tuo regalino!</button>
+          </div>
+          
+          <p className="read-the-docs">
+            Fatto da emi con ❤️
+          </p>
+        </>
+      )}
+      {active && (
+        <>
+          <h1>Scegli la prossima meta</h1>
+          <div className="card">
+            {destinazioni.map((destinazione) => (
+              
+              <button id={destinazione.id.toString()} className="card-button">
+                {destinazione.titolo}
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+
+
+
+
+
     </>
+    
   )
 }
 
