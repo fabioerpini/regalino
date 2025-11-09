@@ -19,15 +19,17 @@ function App() {
     {
       id: 1,
       titolo: "Tenerife",
-      img: "https://img.nh-hotels.net/8yYbq/LYW3zz/original/iStock-1138009903.jpg?output-quality=70&resize=555:*&composite-to=center,center%7C555:280&background-color=white"
+      img: "https://www.baltana.com/files/wallpapers-29/Tenerife-Island-Wallpaper-HD-93853.jpg"
     },
     {
       id: 2,
-      titolo: "Amsterdam"
+      titolo: "Amsterdam",
+      img: "https://becentsational.com/wp-content/uploads/2021/04/Amsterdam-iPhone-Wallpaper-8.jpg"
     },
     {
       id: 3,
-      titolo: "Madrid"
+      titolo: "Madrid",
+      img: "https://wallpaper.forfun.com/fetch/e9/e9057a82be6f97d3ad0efb378f9d0c72.jpeg?h=900&r=0.5&f=webp"
     }
 
   ]
@@ -68,6 +70,19 @@ function App() {
       )}
       {active && selectedDestinazione !== null && (
         <>
+        <div style={{ backgroundImage: destinazioni.find(d => d.id === selectedDestinazione)?.img ? `url(${destinazioni.find(d => d.id === selectedDestinazione)?.img})` : 'none',
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      opacity: 0.3,
+                      position: 'fixed',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      zIndex: -1
+                      }}>
+          </div>
+
           <h1>Hai scelto {destinazioni.find(d => d.id === selectedDestinazione)?.titolo}!</h1>
           <button onClick={() => {  setSelectedDestinazione(null); }}>
             Torna indietro
