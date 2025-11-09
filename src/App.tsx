@@ -18,7 +18,8 @@ function App() {
   const destinazioni = [
     {
       id: 1,
-      titolo: "Tenerife"
+      titolo: "Tenerife",
+      img: "https://img.nh-hotels.net/8yYbq/LYW3zz/original/iStock-1138009903.jpg?output-quality=70&resize=555:*&composite-to=center,center%7C555:280&background-color=white"
     },
     {
       id: 2,
@@ -54,10 +55,12 @@ function App() {
           <h1>Scegli la prossima meta</h1>
           <div className="card-container">
             {destinazioni.map((destinazione) => (
-              <div className="card" key={destinazione.id}>
-                <button key={destinazione.id} onClick={() => handleDestinazioneClick(destinazione.id)}>
+              <div className="card" 
+                    key={destinazione.id} 
+                    onClick={() => handleDestinazioneClick(destinazione.id)}>
+                <h3>
                   {destinazione.titolo}
-                </button>
+                  </h3>
               </div>
             ))}
           </div>
