@@ -70,17 +70,9 @@ function App() {
       )}
       {active && selectedDestinazione !== null && (
         <>
-        <div style={{ backgroundImage: destinazioni.find(d => d.id === selectedDestinazione)?.img ? `url(${destinazioni.find(d => d.id === selectedDestinazione)?.img})` : 'none',
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center',
-                      opacity: 0.3,
-                      position: 'fixed',
-                      top: 0,
-                      left: 0,
-                      width: '100%',
-                      height: '100%',
-                      zIndex: -1
-                      }}>
+        <div className='background-image' style={{
+            backgroundImage: `url(${destinazioni.find(d => d.id === selectedDestinazione)?.img})`,
+          }}>
           </div>
 
           <h1>Hai scelto {destinazioni.find(d => d.id === selectedDestinazione)?.titolo}!</h1>

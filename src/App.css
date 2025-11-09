@@ -33,3 +33,17 @@
     transform: scale(1.2);
   }
 }
+
+.background-image {
+  position: fixed;
+  inset: 0;                /* top:0; right:0; bottom:0; left:0 */
+  width: 100vw;
+  height: 100dvh;         /* dynamic viewport height for mobile */
+  height: 100vh;          /* fallback */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3;
+  z-index: -1;
+  pointer-events: none;   /* let clicks pass through to page content */
+}
