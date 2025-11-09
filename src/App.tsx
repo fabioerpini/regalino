@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { jsPDF } from 'jspdf';
 
 import './App.css'
 
@@ -15,21 +16,44 @@ function App() {
     setActive(true);
   }
 
+  function generaPDF(destinazione: {id: number; titolo: string; img: string} | undefined) {
+  if (!destinazione) return;
+
+  const doc = new jsPDF();
+
+  doc.setFontSize(22);
+  doc.text(`Voucher per ${destinazione.titolo}`, 20, 30);
+  doc.setFontSize(16);
+  doc.text(`Congratulazioni Dottoressa!`, 20, 50);
+  doc.setFontSize(12);
+  doc.text(`Questo voucher ti dà diritto a un viaggio indimenticabile a ${destinazione.titolo}.`, 20, 60);
+  doc.text(`Prepara i bagagli!`, 20, 70);
+
+  // add image
+  const imgProps = doc.getImageProperties(destinazione.img);
+  const pdfWidth = doc.internal.pageSize.getWidth();
+  const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+  doc.addImage(destinazione.img, 'JPEG', 0, 80, pdfWidth, pdfHeight);
+
+  doc.save(`voucher_${destinazione.titolo}.pdf`);
+}
+
+
   const destinazioni = [
     {
       id: 1,
       titolo: "Tenerife",
-      img: "https://www.baltana.com/files/wallpapers-29/Tenerife-Island-Wallpaper-HD-93853.jpg"
+      img: "resources/tenerife.jpg"
     },
     {
       id: 2,
       titolo: "Amsterdam",
-      img: "https://becentsational.com/wp-content/uploads/2021/04/Amsterdam-iPhone-Wallpaper-8.jpg"
+      img: "resources/amsterdam.jpg"
     },
     {
       id: 3,
       titolo: "Madrid",
-      img: "https://wallpaper.forfun.com/fetch/e9/e9057a82be6f97d3ad0efb378f9d0c72.jpeg?h=900&r=0.5&f=webp"
+      img: "resources/madrid.jpeg"
     }
 
   ]
@@ -74,11 +98,21 @@ function App() {
             backgroundImage: `url(${destinazioni.find(d => d.id === selectedDestinazione)?.img})`,
           }}>
           </div>
-
+          
           <h1>Hai scelto {destinazioni.find(d => d.id === selectedDestinazione)?.titolo}!</h1>
-          <button onClick={() => {  setSelectedDestinazione(null); }}>
-            Torna indietro
-          </button>
+          <div className="card-container">
+
+            <div className="card">
+              <button onClick={() => { alert("Preparati a partire! 🛫"); generaPDF(destinazioni.find(d => d.id === selectedDestinazione) )}}>
+                Scarica il tuo voucher in PDF
+              </button>
+            </div>
+            <div className="card-container">
+              <button onClick={() => {  setSelectedDestinazione(null); }}>
+                Torna indietro
+              </button>
+            </div>
+          </div>
         </>
       )}
     </>
