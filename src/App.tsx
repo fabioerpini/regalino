@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { jsPDF } from 'jspdf';
 
 import './App.css'
 
@@ -17,27 +16,22 @@ function App() {
   }
 
   function generaPDF(destinazione: {id: number; titolo: string; img: string} | undefined) {
-  if (!destinazione) return;
+    if (!destinazione) return;
 
-  const doc = new jsPDF();
+    import('jspdf').then(({ jsPDF }) => {
+      const doc = new jsPDF();
 
-  doc.setFontSize(22);
-  doc.text(`Voucher per ${destinazione.titolo}`, 20, 30);
-  doc.setFontSize(16);
-  doc.text(`Congratulazioni Dottoressa!`, 20, 50);
-  doc.setFontSize(12);
-  doc.text(`Questo voucher ti dà diritto a un viaggio indimenticabile a ${destinazione.titolo}.`, 20, 60);
-  doc.text(`Prepara i bagagli!`, 20, 70);
-
-  // add image
-  const imgProps = doc.getImageProperties(destinazione.img);
-  const pdfWidth = doc.internal.pageSize.getWidth();
-  const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-  doc.addImage(destinazione.img, 'JPEG', 0, 80, pdfWidth, pdfHeight);
-
-  doc.save(`voucher_${destinazione.titolo}.pdf`);
-}
-
+      doc.setFontSize(22);
+      doc.text(`Voucher per ${destinazione.titolo}`, 20, 30);
+      doc.setFontSize(16);
+      doc.text(`Congratulazioni Dottoressa!`, 20, 50);
+      doc.setFontSize(12);
+      doc.text(`Questo voucher ti dà diritto a un viaggio indimenticabile a ${destinazione.titolo}.`, 20, 60);
+      doc.text(`Goditi il tuo viaggio!`, 20, 70);
+      doc.addImage(destinazione.img, 'JPEG', 15, 80, 180, 100);
+      doc.save(`voucher_${destinazione.titolo}.pdf`);
+    });
+  }
 
   const destinazioni = [
     {
