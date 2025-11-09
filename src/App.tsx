@@ -52,7 +52,7 @@ function App() {
       )}
       {active && selectedDestinazione === null && (
         <>
-          <h1>Scegli la prossima meta</h1>
+          <h2>Scegli la prossima meta</h2>
           <div className="card-container">
             {destinazioni.map((destinazione) => (
               <div className="card" 
