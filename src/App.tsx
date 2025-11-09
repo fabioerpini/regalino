@@ -44,9 +44,9 @@ function App() {
             </div>
           </div>
           
-          <p className="read-the-docs">
-            Fatto da emi con ❤️
-          </p>
+            <p className="read-the-docs">
+            Fatto da emi con <span className="beating-heart">❤️</span>
+            </p>
         </>
       )}
       {active && selectedDestinazione === null && (

@@ -34,4 +34,15 @@
   box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
 }
 
-
+.beating-heart {
+  display: inline-block;
+  animation: beat 1s infinite;
+}
+@keyframes beat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
