@@ -37,17 +37,17 @@ function App() {
     {
       id: 1,
       titolo: "Tenerife",
-      img: "tenerife.jpg"
+      img: `${import.meta.env.BASE_URL}tenerife.jpg`
     },
     {
       id: 2,
       titolo: "Amsterdam",
-      img: "/amsterdam.jpg"
+      img: `${import.meta.env.BASE_URL}amsterdam.jpg`
     },
     {
       id: 3,
       titolo: "Madrid",
-      img: "/madrid.jpeg"
+      img: `${import.meta.env.BASE_URL}madrid.jpeg`
     }
 
   ]
