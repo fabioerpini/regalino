@@ -1,15 +1,19 @@
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
   color-scheme: light dark;
   color: rgba(34, 34, 34, 0.87);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;  
+}
+
+@font-face {
+  font-family: 'MyFont';
+  src: url('./assets/fonts/MyFont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 body {
@@ -18,14 +22,39 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  overflow: hidden;
   background-color: #f4fad8;
 }
 
 h1 {
   font-size: 3.2em;
-  line-height: 1.1;
+  line-height: 1.8;
+  }
+h2 {
+  font-size: 2.4em;
+  line-height: 1.6;
+  }
+h3 {
+  font-size: 1.5em;
+  line-height: 1.4;
+  }
+
+
+.handwriting {
+  font-family: 'MyFont';
+  animation: handwriting 2s ease-in-out;  
 }
+@keyframes handwriting {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
 
 button {
   border-radius: 8px;
@@ -45,5 +74,12 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.footer {
+  margin-top: 5em;
+
+  font-size: 0.9rem;
+  color: rgba(34, 34, 34, 0.6);
 }
 

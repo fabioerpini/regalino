@@ -1,5 +1,4 @@
 #root {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -19,6 +18,17 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
   cursor: pointer;
+}
+
+.tag-button {
+  margin: 4px;
+  border-radius: 6px;
+  border: 1px solid #571d1d;
+  padding: 0.4em 0.8em;
+  font-size: 0.9em;
+  background-color: #e0f7fa;
+  color: #000;
+  transition: background-color 0.25s, border-color 0.25s;
 }
 
 .beating-heart {
@@ -44,6 +54,110 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.3;
+  opacity: 0.5;
   z-index: -1;
+  animation: backgroundFade 2s ease-in-out; 
+}
+@keyframes backgroundFade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}
+
+
+
+
+
+
+
+
+/* FULL SCREEN CINEMATIC TRANSITION */
+.flight-transition {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 999999;
+  animation: cameraShake 0.5s ease-in;
+}
+
+/* CIELO */
+.flight-transition .sky {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #8ecdfc, #dff4ff);
+  z-index: 1;
+}
+
+/* NUBI */
+.flight-transition .clouds {
+  position: absolute;
+  inset: 0;
+  background: url('clouds.png') repeat-x;
+  background-size: cover;
+  opacity: 0.8;
+  animation: cloudMove 5s linear infinite;
+  z-index: 2;
+}
+
+/* AEREO PNG */
+.flight-transition .plane-real {
+  position: absolute;
+  bottom: -1vh;
+  left: -40vw;
+  width: 50vw;
+  transform: rotate(-5deg);
+  animation: planeTakeoff 5s ease-in-out forwards;
+  z-index: 3;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
+}
+
+/* FLASH FINALE (LENS FLARE) */
+.flight-transition .flash {
+  position: absolute;
+  inset: 0;
+  background: white;
+  opacity: 0;
+  animation: flashEffect 4.6s ease forwards;
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* ANIMATIONS */
+@keyframes cloudMove {
+  from { background-position-x: 0; }
+  to   { background-position-x: -800px; }
+}
+
+@keyframes planeTakeoff {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(-2deg);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(40vw, -5vh) scale(1.2) rotate(2deg);
+  }
+  75% {
+    transform: translate(80vw, -40vh) scale(1.8) rotate(10deg);
+  }
+  100% {
+    transform: translate(120vw, -80vh) scale(2.2) rotate(15deg);
+    opacity: 0.3;
+  }
+}
+
+@keyframes cameraShake {
+  0% { transform: translate(0); }
+  25% { transform: translate(1px, -1px); }
+  50% { transform: translate(-1px, 1px); }
+  75% { transform: translate(1px, 1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes flashEffect {
+  0% { opacity: 0; }
+  80% { opacity: 0; }
+  100% { opacity: 1; }
 }

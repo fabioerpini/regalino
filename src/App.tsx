@@ -7,8 +7,19 @@ function App() {
   const [active, setActive] = useState<boolean | null>(null);
   const [selectedDestinazione, setSelectedDestinazione] = useState<number | null>(null);
 
+  const [flyTransition, setFlyTransition] = useState(false);
+
+
+
+
   function handleDestinazioneClick(id: number) {
     setSelectedDestinazione(id);
+    setFlyTransition(true);
+
+  setTimeout(() => {
+    setSelectedDestinazione(id);
+    setFlyTransition(false);
+  }, 5000); // deve combaciare con la durata dell'animazione
   }
 
   function startExperience() {
@@ -37,17 +48,60 @@ function App() {
     {
       id: 1,
       titolo: "Tenerife",
+      tags:[
+        { name: "Mare",
+          emoji: "🏖️"
+         },
+        { name: "Sole",
+          emoji: "☀️"
+         },
+        { name: "Relax",
+          emoji: "😌"
+         }
+      ],
       img: `${import.meta.env.BASE_URL}tenerife.jpg`
     },
     {
       id: 2,
       titolo: "Amsterdam",
+      tags:[
+        { name: "Cultura",
+          emoji: "🏛️"
+          },
+        { name: "Natura",
+          emoji: "🌳"
+          },
+        { name: "Divertimento",
+          emoji: "🎉"
+          }
+      ],
       img: `${import.meta.env.BASE_URL}amsterdam.jpg`
     },
     {
       id: 3,
       titolo: "Madrid",
+      tags:[
+        { name: "Arte",
+          emoji: "🎨"
+          },
+        { name: "Cibo",
+          emoji: "🍽️"
+          },
+        { name: "Vita notturna",
+          emoji: "🌃"
+          }
+      ],
       img: `${import.meta.env.BASE_URL}madrid.jpeg`
+    },
+    {
+      id: 4,
+      titolo: "Altro",
+      tags:[
+        { name: "Sorpresa",
+          emoji: "🎁"
+          }
+      ],
+      img: `${import.meta.env.BASE_URL}sorpresa.jpg`
     }
 
   ]
@@ -56,7 +110,8 @@ function App() {
     <>
       {active === null && ( // prima schermata
         <>
-          <h1>Complimenti Dottoressa!</h1>
+
+          <h1 className='handwriting'>Complimenti Dottoressa</h1>
           <div className="card-container">
 
             <div className="card-button">
@@ -65,14 +120,15 @@ function App() {
             </div>
           </div>
           
-            <p className="read-the-docs">
+            <p className="footer">
             Fatto da emi con <span className="beating-heart">❤️</span>
             </p>
         </>
       )}
       {active && selectedDestinazione === null && (
         <>
-          <h2>Scegli la prossima meta</h2>
+          
+          <h2 className='handwriting'>Scegli la prossima meta</h2>
           <div className="card-container">
             {destinazioni.map((destinazione) => (
               <div className="card" 
@@ -80,20 +136,39 @@ function App() {
                     onClick={() => handleDestinazioneClick(destinazione.id)}>
                 <h3>
                   {destinazione.titolo}
-                  </h3>
+                </h3>
+                {destinazione.tags?.map((tag, index) => (
+                  <button key={index} className="tag-button">
+                    {tag.name} {tag.emoji}
+                  </button>
+                ))}
               </div>
             ))}
           </div>
         </>
       )}
+      {flyTransition && (
+        <div className="flight-transition">
+          <div className="sky"></div>
+          <div className="clouds"></div>
+          <img src="aereo.png" className="plane-real" />
+          <div className="flash"></div>
+        </div>
+      )}
+
+
       {active && selectedDestinazione !== null && (
         <>
         <div className='background-image' style={{
             backgroundImage: `url(${destinazioni.find(d => d.id === selectedDestinazione)?.img})`,
           }}>
           </div>
-          
-          <h1>Hai scelto {destinazioni.find(d => d.id === selectedDestinazione)?.titolo}!</h1>
+          <div className="card-container">
+            <div className="card">
+              <h2 className='handwriting'>Hai scelto: </h2>
+              <h1 className='handwriting'>{destinazioni.find(d => d.id === selectedDestinazione)?.titolo}</h1>
+            </div>
+          </div>
           <div className="card-container">
 
             <div className="card">
@@ -101,7 +176,7 @@ function App() {
                 Scarica il tuo voucher in PDF
               </button>
             </div>
-            <div className="card-container">
+            <div className="card">
               <button onClick={() => {  setSelectedDestinazione(null); }}>
                 Torna indietro
               </button>
