@@ -9,6 +9,7 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 1rem;
+  padding: 2rem;
 }
 
 .card {
@@ -18,8 +19,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
   cursor: pointer;
-  background-color: #dcdddd;
-  background: linear-gradient(rgba(223,244,255,0.6), rgba(223,244,255,0.6));
+  background: linear-gradient(rgba(248, 255, 223, 0.405), rgba(223, 244, 255, 0.458));
   backdrop-filter: blur(6px) saturate(120%);
   -webkit-backdrop-filter: blur(6px) saturate(120%);
   border: 1px solid rgba(87,29,29,0.12);
@@ -183,8 +183,7 @@
   flex-direction: column;
   gap: 0.5em;
   border-radius: 12px;
-  background-color: #dcdddd;
-  background: linear-gradient(rgba(223,244,255,0.6), rgba(223,244,255,0.6));
+  background: linear-gradient(rgba(223, 244, 255, 0.405), rgba(223, 244, 255, 0.458));
   backdrop-filter: blur(6px) saturate(120%);
   -webkit-backdrop-filter: blur(6px) saturate(120%);
   border: 1px solid rgba(87,29,29,0.12);

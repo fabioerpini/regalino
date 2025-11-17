@@ -13,15 +13,19 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@react-pdf/renderer": "^4.3.1",
     "framer-motion": "^12.23.24",
     "jspdf": "^3.0.3",
     "lucide-react": "^0.553.0",
+    "pdf-lib": "^1.17.1",
+    "pdfmake": "^0.2.20",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
     "@types/node": "^24.6.0",
+    "@types/pdfmake": "^0.2.12",
     "@types/react": "^19.1.16",
     "@types/react-dom": "^19.1.9",
     "@vitejs/plugin-react": "^5.0.4",
