@@ -95,7 +95,7 @@
 .flight-transition .clouds {
   position: absolute;
   inset: 0;
-  background: url('clouds.png') repeat-x;
+  background: url('/clouds.png') repeat-x;
   background-size: cover;
   opacity: 0.8;
   animation: cloudMove 5s linear infinite;
