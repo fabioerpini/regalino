@@ -49,15 +49,13 @@ function App() {
       id: 1,
       titolo: "Tenerife",
       tags:[
-        { name: "Mare",
-          emoji: "🏖️"
-         },
-        { name: "Sole",
-          emoji: "☀️"
-         },
-        { name: "Relax",
-          emoji: "😌"
-         }
+        { name: "Mare",emoji: "🏖️"},
+        { name: "Sole",emoji: "☀️"},
+        { name: "Relax",emoji: "😌"}
+      ],
+      date: [
+        { start: "09/05/2026", end: "16/05/2026" },
+        { start: "09/05/2026", end: "16/05/2026" }
       ],
       img: `${import.meta.env.BASE_URL}tenerife.jpg`
     },
@@ -65,15 +63,13 @@ function App() {
       id: 2,
       titolo: "Amsterdam",
       tags:[
-        { name: "Cultura",
-          emoji: "🏛️"
-          },
-        { name: "Natura",
-          emoji: "🌳"
-          },
-        { name: "Divertimento",
-          emoji: "🎉"
-          }
+        { name: "Cultura",emoji: "🏛️"},
+        { name: "Natura",emoji: "🌳"},
+        { name: "Divertimento",emoji: "🎉"}
+      ],
+      date: [
+        { start: "09/05/2026", end: "16/05/2026" },
+        { start: "09/05/2026", end: "16/05/2026" }
       ],
       img: `${import.meta.env.BASE_URL}amsterdam.jpg`
     },
@@ -81,15 +77,13 @@ function App() {
       id: 3,
       titolo: "Madrid",
       tags:[
-        { name: "Arte",
-          emoji: "🎨"
-          },
-        { name: "Cibo",
-          emoji: "🍽️"
-          },
-        { name: "Vita notturna",
-          emoji: "🌃"
-          }
+        { name: "Arte",emoji: "🎨"},
+        { name: "Cibo",emoji: "🍽️"},
+        { name: "Vita notturna",emoji: "🌃"}
+      ],
+      date: [
+        { start: "09/05/2026", end: "16/05/2026" },
+        { start: "09/05/2026", end: "16/05/2026" }
       ],
       img: `${import.meta.env.BASE_URL}madrid.jpeg`
     },
@@ -97,10 +91,9 @@ function App() {
       id: 4,
       titolo: "Altro",
       tags:[
-        { name: "Sorpresa",
-          emoji: "🎁"
-          }
+        { name: "Sorpresa",emoji: "🎁"}
       ],
+      date: [],
       img: `${import.meta.env.BASE_URL}sorpresa.jpg`
     }
 
@@ -159,28 +152,43 @@ function App() {
 
       {active && selectedDestinazione !== null && (
         <>
-        <div className='background-image' style={{
+          <div className='background-image' style={{
             backgroundImage: `url(${destinazioni.find(d => d.id === selectedDestinazione)?.img})`,
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            zIndex: -1,
           }}>
           </div>
-          <div className="card-container">
-            <div className="card">
-              <h2 className='handwriting'>Hai scelto: </h2>
-              <h1 className='handwriting'>{destinazioni.find(d => d.id === selectedDestinazione)?.titolo}</h1>
-            </div>
-          </div>
-          <div className="card-container">
+          
+          <h3 className='handwriting'>Hai scelto </h3>
+          <h1 className='handwriting'>{destinazioni.find(d => d.id === selectedDestinazione)?.titolo}</h1>
 
-            <div className="card">
-              <button onClick={() => { alert("Preparati a partire! 🛫"); generaPDF(destinazioni.find(d => d.id === selectedDestinazione) )}}>
+          
+          
+          <div className="date-container">
+            <h3 className='handwriting'>Possibili date</h3>
+            <div className="date-list">
+            {destinazioni.find(d => d.id === selectedDestinazione)?.date.length ? (
+              destinazioni.find(d => d.id === selectedDestinazione)?.date.map((dateRange, index) => (
+                <p key={index} className="date-range">
+                  🛫{dateRange.start} - {dateRange.end}🛬
+                </p>
+              ))
+            ) : (
+              <p className="date-range">
+                Da concordare
+              </p>
+            )}
+            </div>
+            <button onClick={() => { alert("Preparati a partire! 🛫"); generaPDF(destinazioni.find(d => d.id === selectedDestinazione)) }}>
                 Scarica il tuo voucher in PDF
-              </button>
-            </div>
-            <div className="card">
-              <button onClick={() => {  setSelectedDestinazione(null); }}>
-                Torna indietro
-              </button>
-            </div>
+            </button>
+            <button onClick={() => { setSelectedDestinazione(null); setActive(true); }}>
+                Torna alla selezione
+            </button>   
           </div>
         </>
       )}
