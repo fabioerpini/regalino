@@ -36,6 +36,21 @@ function App() {
   const destinazioni = [
     {
       id: 1,
+      titolo: 'Londra',
+      tags: [
+        { name: 'Cultura', emoji: '🏛️' }  ,
+        { name: 'Harry Potter', emoji: '🪄' },
+        { name: 'Friends', emoji: '☕' }
+      ],
+      date: [
+        { start: '11/03/2026', end: '18/05/2026' }
+      ],
+      img: `${import.meta.env.BASE_URL}londra.png`,
+      imgPDF: `${import.meta.env.BASE_URL}londra_pdf.png`,
+      passportRequired: true,
+    },
+    {
+      id: 2,
       titolo: 'Tenerife',
       tags: [
         { name: 'Mare', emoji: '🏖️' },
@@ -48,10 +63,10 @@ function App() {
       ],
       img: `${import.meta.env.BASE_URL}tenerife.jpg`,
       imgPDF: `${import.meta.env.BASE_URL}tenerife_pdf.png`,
-
+      passportRequired: false,
     },
     {
-      id: 2,
+      id: 3,
       titolo: 'Amsterdam',
       tags: [
         { name: 'Cultura', emoji: '🏛️' },
@@ -64,10 +79,10 @@ function App() {
       ],
       img: `${import.meta.env.BASE_URL}amsterdam.jpg`,
       imgPDF: `${import.meta.env.BASE_URL}amsterdam_pdf.png`,
-
+      passportRequired: false,
     },
     {
-      id: 3,
+      id: 4,
       titolo: 'Madrid',
       tags: [
         { name: 'Arte', emoji: '🎨' },
@@ -80,16 +95,16 @@ function App() {
       ],
       img: `${import.meta.env.BASE_URL}madrid.jpg`,
       imgPDF: `${import.meta.env.BASE_URL}madrid_pdf.png`,
-
+      passportRequired: false,
     },
     {
-      id: 4,
+      id: 5,
       titolo: 'Altro',
       tags: [{ name: 'Sorpresa', emoji: '🎁' }],
       date: [],
       img: `${import.meta.env.BASE_URL}sorpresa.jpg`,
       imgPDF: `${import.meta.env.BASE_URL}sorpresa_pdf.png`,
-
+      passportRequired: false,
     },
   ];
 
@@ -98,7 +113,7 @@ function App() {
     setFlyTransition(true);
     setTimeout(() => {
       setFlyTransition(false);
-    }, 500);
+    }, 6000);
   }
 
   function startExperience() {
@@ -111,24 +126,29 @@ function App() {
     <>
       {active === null && (
         <>
-          <h1 className="handwriting">Complimenti Dottoressa</h1>
-          <div className="card-container">
-            <div className="card-button">
-              <button onClick={() => startExperience()}>Scopri ora il tuo regalino!</button>
-            </div>
+        <div style={{
+          flexDirection: 'column',
+          paddingTop: '15vh'
+        }
+          
+  }>
+        <h1 className="handwriting">Complimenti Dottoressa</h1>
+        <div className="card-container">
+          <div className="card-button">
+            <button onClick={() => startExperience()}>Scopri ora il tuo regalino!</button>
           </div>
-          <p className="footer">
-            Fatto da emi con <span className="beating-heart">❤️</span>
-          </p>
+        </div>
+        <p className="footer">
+          Fatto da emi con <span className="beating-heart">❤️</span>
+        </p>
+        </div>
         </>
       )}
 
       {active && selectedDestinazione === null && (
         <>
-        <div className="card-container">
           <h2 className="handwriting">Scegli la prossima meta</h2>
-          </div>
-          <div className="card-container">
+          <div className="card-container" style={{paddingTop:20}}>
             {destinazioni.map(destinazione => (
               <div
                 className="card"
@@ -141,6 +161,9 @@ function App() {
                     {tag.name} {tag.emoji}
                   </button>
                 ))}
+                {destinazione.passportRequired && (
+                  <p className="passport-banner">🛂 Passaporto richiesto</p>
+                )}
               </div>
             ))}
           </div>
@@ -161,15 +184,11 @@ function App() {
           <div
             className="background-image"
             style={{
-              backgroundImage: `url(${currentDestinazione.img})`,
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: -1,
-            }}
-          ></div>
+              backgroundImage: `url(${currentDestinazione.img})`,              
+              }}>
+                
+          </div>
+
 
           <h3 className="handwriting">Hai scelto</h3>
           <h1 className="handwriting">{currentDestinazione.titolo}</h1>

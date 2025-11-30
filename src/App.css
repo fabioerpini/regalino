@@ -18,7 +18,7 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: left;
   cursor: pointer;
-  background: linear-gradient(rgba(248, 255, 223, 0.405), rgba(223, 244, 255, 0.458));
+  background: linear-gradient(rgba(249, 250, 242, 0.405), rgba(245, 222, 158, 0.458));
   backdrop-filter: blur(6px) saturate(120%);
   -webkit-backdrop-filter: blur(6px) saturate(120%);
   border: 1px solid rgba(87,29,29,0.12);
@@ -41,7 +41,7 @@
   border: 1px solid #571d1d;
   padding: 0.4em 0.8em;
   font-size: 0.9em;
-  background-color: #e5e5e5;
+  background-color: rgba(249, 250, 242, 0.500);
   color: #452323;
 }
 
@@ -64,21 +64,14 @@
   left: 0;
   width: 100%;
   height: 100vh;
-  height: 100dvh; /* preferito dai browser moderni */
-  background-size: cover;
+  height: 100dvh; 
   background-position: center;
-  background-repeat: no-repeat;
-  opacity: 0.5;
+  opacity: 0.6;
+  filter: blur(2px) brightness(70%);
   z-index: -1;
-  animation: backgroundFade 2s ease-in-out; 
-}
-@keyframes backgroundFade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0.5;
-  }
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: background-image 0.5s ease-in-out;
 }
 
 
@@ -87,21 +80,19 @@
 
 
 
-
-/* FULL SCREEN CINEMATIC TRANSITION */
 .flight-transition {
   position: fixed;
   inset: 0;
   overflow: hidden;
-  z-index: 999999;
-  animation: cameraShake 0.5s ease-in;
+  pointer-events: none;
+  z-index: 9999;
 }
-
 /* CIELO */
 .flight-transition .sky {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom, #8ecdfc, #dff4ff);
+  animation: fadeOut 1s ease-out 5s forwards;
   z-index: 1;
 }
 
@@ -112,7 +103,9 @@
   background: url('/clouds.png') repeat-x;
   background-size: cover;
   opacity: 0.8;
-  animation: cloudMove 5s linear infinite;
+  animation: cloudMove 5s linear infinite,
+             fadeOut 1s ease-out 4s forwards;
+;
   z-index: 2;
 }
 
@@ -123,21 +116,32 @@
   left: -40vw;
   width: 50vw;
   transform: rotate(-5deg);
-  animation: planeTakeoff 5s ease-in-out forwards;
+  animation: planeTakeoff 5s ease-in-out forwards,
+             fadeOut 1s ease-out 4s forwards;
   z-index: 3;
   filter: drop-shadow(0 10px 15px rgba(0,0,0,0.4));
 }
 
-/* FLASH FINALE (LENS FLARE) */
+/* FLASH (LENS FLARE) */
 .flight-transition .flash {
   position: absolute;
   inset: 0;
   background: white;
   opacity: 0;
-  animation: flashEffect 4.6s ease forwards;
+  animation: flashEffect 5s ease-in forwards,
+             flashEffect 1s ease-out reverse 5s forwards;
   pointer-events: none;
   z-index: 4;
 }
+
+@keyframes fadeOut {
+  from { opacity: 0.6; }
+  to   { opacity: 0; }
+}
+
+
+
+
 
 /* ANIMATIONS */
 @keyframes cloudMove {
@@ -162,17 +166,10 @@
   }
 }
 
-@keyframes cameraShake {
-  0% { transform: translate(0); }
-  25% { transform: translate(1px, -1px); }
-  50% { transform: translate(-1px, 1px); }
-  75% { transform: translate(1px, 1px); }
-  100% { transform: translate(0); }
-}
 
 @keyframes flashEffect {
   0% { opacity: 0; }
-  80% { opacity: 0; }
+  70% { opacity: 0; }
   100% { opacity: 1; }
 }
 
@@ -188,7 +185,10 @@
   border: 1px solid rgba(87,29,29,0.12);
   box-shadow: 0 6px 18px rgba(0,0,0,0.06);
   padding: 2em;
-  width:max-content;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  
 }
 
 .date-range {
@@ -204,3 +204,17 @@
 .date-list {
   list-style-type: none;
 }
+
+.passport-banner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #fbc6c6;
+  color: #a00000;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+

@@ -18,11 +18,12 @@
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background-color: #e0d6ac;
+  background: linear-gradient(rgb(249, 250, 242), rgb(246, 62, 62));
+  
+  padding-top: 3rem;
 }
 
 h1 {
@@ -33,14 +34,12 @@ h1 {
 h2 {
   font-size: 2.4em;
   line-height: 1.6;
-    color: black;
-
+  color: black;
   }
 h3 {
   font-size: 1.5em;
   line-height: 1.4;
-    color: black;
-
+  color: black;
   }
 
 
