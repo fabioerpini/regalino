@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { jsPDF } from 'jspdf';
 import './App.css';
 
 function App() {
@@ -7,36 +6,48 @@ function App() {
   const [selectedDestinazione, setSelectedDestinazione] = useState<number | null>(null);
   const [flyTransition, setFlyTransition] = useState(false);
 
-  function generaPDF(titolo: string, imgPDF: string) {
+  async function generaPDF(titolo: string, imgPDF: string) {
+  // 1️⃣ Apri SUBITO la finestra → non verrà bloccata
+  const newTab = window.open('', '_blank');
+  if (!newTab) {
+    alert("Il browser ha bloccato il popup! Sbloccalo e riprova.");
+    return;
+  }
 
-    const doc = new jsPDF({
-      orientation: 'landscape',
-      unit: 'mm',
-      format: 'a4',
-    });
+  // 2️⃣ Carica jsPDF dopo
+  const { jsPDF } = await import('jspdf');
 
-    doc.addImage(imgPDF, 'JPEG', 0, 0, 297, 210);
-    doc.setFont('helvetica');
-    doc.setFontSize(30);
-    doc.setTextColor(0, 0, 0);
+  const doc = new jsPDF({
+    //not landscape
+    orientation:'portrait',
+    unit: 'mm',
+    format: 'a4',
+  });
 
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
+  doc.addImage(imgPDF, 'JPEG', 0, 0, 210, 297);
+  doc.setFont('helvetica');
+  doc.setFontSize(30);
+  doc.setTextColor(0, 0, 0);
 
-    doc.text('Voucher per', pageWidth / 2, pageHeight / 2 , { align: 'center' });
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
 
-    doc.setFontSize(40);
-    doc.setFont('helvetica','bold');
-    doc.setTextColor(255, 0, 0);
+  doc.text('Voucher per', pageWidth / 2, pageHeight / 2, { align: 'center' });
 
-    doc.text(titolo, pageWidth / 2, pageHeight / 2 + 15, { align: 'center' });
+  doc.setFontSize(40);
+  doc.setFont('helvetica', 'bold');
+  doc.setTextColor(255, 0, 0);
 
-    // ⭐ Funziona anche su iPhone
-    const pdfBlob = doc.output('blob');
-    const blobUrl = URL.createObjectURL(pdfBlob);
-    window.open(blobUrl, '_blank');
+  doc.text(titolo, pageWidth / 2, pageHeight / 2 + 15, { align: 'center' });
 
+  // 3️⃣ Genera il blob
+  const pdfBlob = doc.output('blob');
+  const blobUrl = URL.createObjectURL(pdfBlob);
+
+  // 4️⃣ Carica nel tab già aperto
+  newTab.location.href = blobUrl;
 }
+
 
 
   const destinazioni = [
