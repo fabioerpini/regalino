@@ -1,13 +1,42 @@
-import { useState,lazy, Suspense } from 'react';
+import { useState } from 'react';
+import { jsPDF } from 'jspdf';
 import './App.css';
-const LazyVoucherGenerator = lazy(() => import('./VoucherGenerator'));
 
 function App() {
   const [active, setActive] = useState<boolean | null>(null);
   const [selectedDestinazione, setSelectedDestinazione] = useState<number | null>(null);
   const [flyTransition, setFlyTransition] = useState(false);
 
-  
+  function generaPDF(titolo: string, imgPDF: string) {
+
+    const doc = new jsPDF({
+      orientation: 'landscape',
+      unit: 'mm',
+      format: 'a4',
+    });
+
+    doc.addImage(imgPDF, 'JPEG', 0, 0, 297, 210);
+    doc.setFont('helvetica');
+    doc.setFontSize(30);
+    doc.setTextColor(0, 0, 0);
+
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    doc.text('Voucher per', pageWidth / 2, pageHeight / 2 , { align: 'center' });
+
+    doc.setFontSize(40);
+    doc.setFont('helvetica','bold');
+    doc.setTextColor(255, 0, 0);
+
+    doc.text(titolo, pageWidth / 2, pageHeight / 2 + 15, { align: 'center' });
+
+    // ⭐ Funziona anche su iPhone
+    const pdfBlob = doc.output('blob');
+    const blobUrl = URL.createObjectURL(pdfBlob);
+    window.open(blobUrl, '_blank');
+
+}
 
 
   const destinazioni = [
@@ -183,15 +212,18 @@ function App() {
                 <p className="date-range">Da concordare</p>
               )}
             </div>
-            
-            <Suspense fallback={<p>Caricamento voucher...</p>}>
-              <LazyVoucherGenerator titolo={currentDestinazione.titolo} imgPDF={currentDestinazione.imgPDF}>
-                <button className="voucher-button">Scarica il tuo Voucher 🎟️</button>
-              </LazyVoucherGenerator>
-            </Suspense> 
+
+            <button
+              className="voucher-button"
+              onClick={() => {
+                generaPDF(currentDestinazione.titolo, currentDestinazione.imgPDF);
+              }}
+            >
+              Scarica il tuo voucher 🎟️
+            </button>
 
 
-            <button className="voucher-button"
+            <button
               onClick={() => {
                 setSelectedDestinazione(null);
                 setActive(true);
