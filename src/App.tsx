@@ -120,7 +120,7 @@ function App() {
       tags: [{ name: 'Sorpresa', emoji: '🎁' }],
       date: [],
       img: `${import.meta.env.BASE_URL}sorpresa.jpg`,
-      imgPDF: `${import.meta.env.BASE_URL}sorpresa_pdf.png`,
+      imgPDF: `${import.meta.env.BASE_URL}altro_pdf.png`,
       passportRequired: false,
     },
   ];
