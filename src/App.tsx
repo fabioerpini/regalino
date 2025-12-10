@@ -142,27 +142,25 @@ function App() {
   return (
     <>
       {active === null && (
+            document.body.classList.add("no-scroll"),
+
         <>
-        <div style={{
-          flexDirection: 'column',
-          paddingTop: '15vh'
-        }
-          
-  }>
-        <h1 className="handwriting">Complimenti Dottoressa</h1>
-        <div className="card-container">
-          <div className="card-button">
-            <button onClick={() => startExperience()}>Scopri ora il tuo regalino!</button>
+        <div className="intro-container">
+          <h1 className="handwriting">Complimenti Dottoressa</h1>
+          <div className="card-container" style={{paddingTop:20}}>
+            <div className="card-button">
+              <button onClick={() => startExperience()}>Scopri ora il tuo regalino!</button>
+            </div>
           </div>
-        </div>
-        <p className="footer">
-          Fatto da emi con <span className="beating-heart">❤️</span>
-        </p>
+          <p className="footer">
+            Fatto da emi con <span className="beating-heart">❤️</span>
+          </p>
         </div>
         </>
       )}
 
       {active && selectedDestinazione === null && (
+        document.body.classList.remove("no-scroll"),
         <>
           <h2 className="handwriting">Scegli la prossima meta</h2>
           <div className="card-container" style={{paddingTop:20}}>
@@ -188,6 +186,7 @@ function App() {
       )}
 
       {flyTransition && (
+            document.body.classList.add("no-scroll"),
         <div className="flight-transition">
           <div className="sky"></div>
           <div className="clouds"></div>
@@ -197,6 +196,8 @@ function App() {
       )}
 
       {active && selectedDestinazione !== null && currentDestinazione && (
+                    document.body.classList.add("no-scroll"),
+
         <>
           <div
             className="background-image"

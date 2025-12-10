@@ -84,3 +84,17 @@ button:focus-visible {
   color: rgba(34, 34, 34, 0.6);
 }
 
+
+
+.no-scroll {
+  overflow: hidden;
+  height: 100vh;
+  overscroll-behavior: none;
+}
+
+.intro-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 8vh;
+}
