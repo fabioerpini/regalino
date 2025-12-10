@@ -4,7 +4,6 @@
   color: rgba(34, 34, 34, 0.87);
 }
 
-
 @font-face {
   font-family: 'MyFont';
   src: url('./assets/fonts/MyFont.ttf') format('truetype');
@@ -16,12 +15,11 @@
 body {
   margin: 0;
   place-items: center;
-  display: grid;
+  min-width: 320px;
   min-height: 100vh;
+  background: linear-gradient(rgb(249, 250, 242), rgb(246, 62, 62));
   
-
-
-  background: linear-gradient(rgb(249, 250, 242), rgb(246, 62, 62));      
+  padding-top: 3rem;
 }
 
 h1 {
