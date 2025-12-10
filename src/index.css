@@ -4,6 +4,10 @@
   color: rgba(34, 34, 34, 0.87);
 }
 
+html {
+  height: 100dvh;
+}
+
 @font-face {
   font-family: 'MyFont';
   src: url('./assets/fonts/MyFont.ttf') format('truetype');
