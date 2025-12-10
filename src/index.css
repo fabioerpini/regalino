@@ -4,9 +4,6 @@
   color: rgba(34, 34, 34, 0.87);
 }
 
-html {
-  height: 100dvh;
-}
 
 @font-face {
   font-family: 'MyFont';
@@ -19,14 +16,12 @@ html {
 body {
   margin: 0;
   place-items: center;
-  min-width: 320px;
-
+  display: grid;
   /* FIX per iPhone */
   min-height: 100dvh;
   height: 100dvh;
 
-  background: linear-gradient(rgb(249, 250, 242), rgb(246, 62, 62));
-  padding-top: 3rem;
+  background: linear-gradient(rgb(249, 250, 242), rgb(246, 62, 62));      
 }
 
 h1 {
