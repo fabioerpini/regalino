@@ -17,7 +17,6 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-  background: linear-gradient(rgb(249, 250, 242), rgb(246, 62, 62));
   padding-top: env(safe-area-inset-top);
   padding-bottom: env(safe-area-inset-bottom);
   padding-top: 3rem;
@@ -97,4 +96,8 @@ button:focus-visible {
   flex-direction: column;
   align-items: center;
   padding-top: 8vh;
+}
+
+.add-bg-color {
+  background: linear-gradient(rgb(249, 250, 242), rgb(246, 62, 62));
 }

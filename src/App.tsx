@@ -142,9 +142,9 @@ function App() {
   return (
     <>
       {active === null && (
-            document.body.classList.add("no-scroll"),
-
         <>
+        {document.body.classList.add("no-scroll")}
+        {document.body.classList.add("add-bg-color")}
         <div className="intro-container">
           <h1 className="handwriting">Complimenti Dottoressa</h1>
           <div className="card-container" style={{paddingTop:20}}>
@@ -160,8 +160,9 @@ function App() {
       )}
 
       {active && selectedDestinazione === null && (
-        document.body.classList.remove("no-scroll"),
         <>
+        {document.body.classList.remove("no-scroll")}
+        {document.body.classList.add("add-bg-color")}
           <h2 className="handwriting">Scegli la prossima meta</h2>
           <div className="card-container" style={{paddingTop:20}}>
             {destinazioni.map(destinazione => (
@@ -185,31 +186,35 @@ function App() {
         </>
       )}
 
-      {flyTransition && (
-            document.body.classList.add("no-scroll"),
-        <div className="flight-transition">
-          <div className="sky"></div>
-          <div className="clouds"></div>
-          <img src="aereo.png" className="plane-real" />
-          <div className="flash"></div>
-        </div>
+      {flyTransition && (    
+        <>
+          {document.body.classList.add("no-scroll")}
+          {document.body.classList.remove("add-bg-color")}
+          <div className="flight-transition">
+            <div className="sky"></div>
+            <div className="clouds"></div>
+            <img src="aereo.png" className="plane-real" />
+            <div className="flash"></div>
+          </div>
+        </>
       )}
 
       {active && selectedDestinazione !== null && currentDestinazione && (
-                    document.body.classList.add("no-scroll"),
-
         <>
-          <div
-            className="background-image"
-            style={{
-              backgroundImage: `url(${currentDestinazione.img})`,              
-              }}>
-                
+            {window.scrollTo(0, 0)}
+            {document.body.classList.add("no-scroll")}
+            {document.body.classList.remove("add-bg-color")}
+          <div className="background-image"
+            style={{ backgroundImage: `url(${currentDestinazione.img})` }}>
           </div>
 
+          <h3 className="handwriting" style={{
+            textShadow: '2px 2px 20px rgba(255, 255, 255, 0.7)',
+          }}>Hai scelto</h3>
 
-          <h3 className="handwriting">Hai scelto</h3>
-          <h1 className="handwriting">{currentDestinazione.titolo}</h1>
+          <h1 className="handwriting"style={{
+            textShadow: '2px 2px 20px rgba(255, 255, 255, 0.7)',
+          }}>{currentDestinazione.titolo}</h1>
 
           <div className="date-container">
             <h3 className="handwriting">Possibili date</h3>
