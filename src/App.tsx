@@ -6,50 +6,6 @@ function App() {
   const [selectedDestinazione, setSelectedDestinazione] = useState<number | null>(null);
   const [flyTransition, setFlyTransition] = useState(false);
 
-  async function generaPDF(titolo: string, imgPDF: string) {
-  // 1️⃣ Apri SUBITO la finestra → non verrà bloccata
-  const newTab = window.open('', '_blank');
-  if (!newTab) {
-    alert("Il browser ha bloccato il popup! Sbloccalo e riprova.");
-    return;
-  }
-
-  // 2️⃣ Carica jsPDF dopo
-  const { jsPDF } = await import('jspdf');
-
-  const doc = new jsPDF({
-    //not landscape
-    orientation:'portrait',
-    unit: 'mm',
-    format: 'a4',
-  });
-
-  doc.addImage(imgPDF, 'JPEG', 0, 0, 210, 297);
-  doc.setFont('helvetica');
-  doc.setFontSize(30);
-  doc.setTextColor(0, 0, 0);
-
-  const pageWidth = doc.internal.pageSize.getWidth();
-  const pageHeight = doc.internal.pageSize.getHeight();
-
-  doc.text('Voucher per', pageWidth / 2, pageHeight / 2, { align: 'center' });
-
-  doc.setFontSize(40);
-  doc.setFont('helvetica', 'bold');
-  doc.setTextColor(255, 0, 0);
-
-  doc.text(titolo, pageWidth / 2, pageHeight / 2 + 15, { align: 'center' });
-
-  // 3️⃣ Genera il blob
-  const pdfBlob = doc.output('blob');
-  const blobUrl = URL.createObjectURL(pdfBlob);
-
-  // 4️⃣ Carica nel tab già aperto
-  newTab.location.href = blobUrl;
-}
-
-
-
   const destinazioni = [
     {
       id: 1,
@@ -138,6 +94,61 @@ function App() {
   }
 
   const currentDestinazione = destinazioni.find(d => d.id === selectedDestinazione);
+
+  
+  
+async function handleCameraPhoto(imgPDF: string, e: React.ChangeEvent<HTMLInputElement>) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onloadend = () => {
+    const base64img = reader.result as string;
+
+    // Ora genera il PDF con l’immagine scattata
+    generaPDF(imgPDF,base64img);
+  };
+  reader.readAsDataURL(file);
+}   
+
+async function generaPDF( imgPDF: string, cameraInput?: string) {
+  // 1️⃣ Esegui le operazioni ASINCRONE
+  const { jsPDF } = await import('jspdf');
+
+  const doc = new jsPDF({
+    orientation:'portrait',
+    unit: 'mm',
+    format: 'a4',
+  });
+
+  doc.addImage(imgPDF, 'JPEG', 0, 0, 210, 297);
+  if (cameraInput) {
+    doc.addImage(cameraInput, 'JPEG', 68, 131, 75, 70);
+
+  }
+  
+  // 2️⃣ Genera il blob
+  const pdfBlob = doc.output('blob');
+  const blobUrl = URL.createObjectURL(pdfBlob);
+
+  // 3️⃣ Crea un elemento link temporaneo
+  const link = document.createElement('a');
+  link.href = blobUrl;
+  
+  // 🔑 Modifica Cruciale per il DOWNLOAD:
+  // A) Imposta l'attributo 'download' con il nome del file desiderato.
+  // B) Rimuovi (o non impostare) link.target = '_blank';
+  link.download = 'documento_scaricato.pdf'; 
+
+  // 4️⃣ Simula il click
+  link.click();
+
+  // 5️⃣ Pulizia (opzionale)
+  // Non essendoci un elemento fisico, possiamo anche non aggiungerlo e rimuoverlo,
+  // ma è buona prassi revocare l'URL del blob quando non serve più.
+  // URL.revokeObjectURL(blobUrl); // Puoi commentarlo se preferisci per semplicità
+}
+
 
   return (
     <>
@@ -233,11 +244,19 @@ function App() {
             <button
               className="voucher-button"
               onClick={() => {
-                generaPDF(currentDestinazione.titolo, currentDestinazione.imgPDF);
+                document.getElementById('cameraInput')?.click();
+                //generaPDF(currentDestinazione.titolo, currentDestinazione.imgPDF);
               }}
             >
               Scarica il tuo voucher 🎟️
             </button>
+            <input
+              type="file"
+              accept="image/*"
+              id="cameraInput"
+              style={{ display: "none" }}
+              onChange={(e) => handleCameraPhoto(currentDestinazione.imgPDF, e)}
+            />
 
 
             <button
