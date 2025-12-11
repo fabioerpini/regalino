@@ -129,7 +129,8 @@ async function generaPDF(imgPDF: string, cameraInput?: string) {
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const size = Math.min(img.width, img.height);
-        canvas.width = canvas.height = size;
+        canvas.width = size; 
+        canvas.height = size;
         const ctx = canvas.getContext('2d')!;
         ctx.drawImage(
           img,
@@ -142,7 +143,7 @@ async function generaPDF(imgPDF: string, cameraInput?: string) {
         resolve(canvas.toDataURL('image/jpeg'));
       };
     });
-    doc.addImage(cameraInput, 'JPEG', 68, 131, 75, 70);
+    doc.addImage(cameraInput, 'JPEG', 68, 126, 75, 75, undefined,undefined, -1);
   }
   // 2️⃣ genera il blob
   const pdfBlob = doc.output('blob');
