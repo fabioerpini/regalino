@@ -60,7 +60,7 @@ function App() {
       tags: [
         { name: 'Arte', emoji: '🎨' },
         { name: 'Cibo', emoji: '🍽️' },
-        { name: 'Vita notturna', emoji: '🌃' },
+        { name: 'Baciuski', emoji: '💋' },
       ],
       date: [
         { start: '09/05/2026', end: '16/05/2026' },
