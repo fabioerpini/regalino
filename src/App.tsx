@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import './App.css';
 
 function App() {
@@ -103,75 +103,63 @@ async function handleCameraPhoto(imgPDF: string, e: React.ChangeEvent<HTMLInputE
 
   const reader = new FileReader();
   reader.onloadend = () => {
+    
+
     const base64img = reader.result as string;
 
-    // Ora genera il PDF con l’immagine scattata
+    
     generaPDF(imgPDF,base64img);
   };
   reader.readAsDataURL(file);
 }   
 
-async function generaPDF( imgPDF: string, cameraInput?: string) {
-  // 1️⃣ Esegui le operazioni ASINCRONE
+async function generaPDF(imgPDF: string, cameraInput?: string) {
   const { jsPDF } = await import('jspdf');
-
   const doc = new jsPDF({
-    orientation:'portrait',
+    orientation: 'portrait',
     unit: 'mm',
     format: 'a4',
   });
-
   doc.addImage(imgPDF, 'JPEG', 0, 0, 210, 297);
+
   if (cameraInput) {
-    // crop image to square
     cameraInput = await new Promise<string>((resolve) => {
       const img = new Image();
       img.src = cameraInput!;
       img.onload = () => {
         const canvas = document.createElement('canvas');
         const size = Math.min(img.width, img.height);
-        canvas.width = size;
-        canvas.height = size;
+        canvas.width = canvas.height = size;
         const ctx = canvas.getContext('2d')!;
         ctx.drawImage(
           img,
           (img.width - size) / 2,
           (img.height - size) / 2,
-          size,
-          size,
-          0,
-          0,
-          size,
-          size
+          size, size,
+          0, 0,
+          size, size
         );
         resolve(canvas.toDataURL('image/jpeg'));
       };
     });
     doc.addImage(cameraInput, 'JPEG', 68, 131, 75, 70);
-
   }
-  
-  // 2️⃣ Genera il blob
+  // 2️⃣ genera il blob
   const pdfBlob = doc.output('blob');
-  const blobUrl = URL.createObjectURL(pdfBlob);
+  const pdfUrl = URL.createObjectURL(pdfBlob);
+  setPdfUrl(pdfUrl);  
 
-  // 3️⃣ Crea un elemento link temporaneo
-  const link = document.createElement('a');
-  link.href = blobUrl;
-  
-  // 🔑 Modifica Cruciale per il DOWNLOAD:
-  // A) Imposta l'attributo 'download' con il nome del file desiderato.
-  // B) Rimuovi (o non impostare) link.target = '_blank';
-  link.download = 'documento_scaricato.pdf'; 
 
-  // 4️⃣ Simula il click
-  link.click();
-
-  // 5️⃣ Pulizia (opzionale)
-  // Non essendoci un elemento fisico, possiamo anche non aggiungerlo e rimuoverlo,
-  // ma è buona prassi revocare l'URL del blob quando non serve più.
-  // URL.revokeObjectURL(blobUrl); // Puoi commentarlo se preferisci per semplicità
 }
+const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+
+function openVoucherTab() {
+  if (pdfUrl) {
+    window.open(pdfUrl, '_blank');
+  }
+}
+
+
 
 
   return (
@@ -268,8 +256,8 @@ async function generaPDF( imgPDF: string, cameraInput?: string) {
             <button
               className="voucher-button"
               onClick={() => {
+                alert('Ora facciamoci una foto!📸\nOppure scegline una dalla galleria');
                 document.getElementById('cameraInput')?.click();
-                //generaPDF(currentDestinazione.titolo, currentDestinazione.imgPDF);
               }}
             >
               Scarica il tuo voucher 🎟️
@@ -279,8 +267,20 @@ async function generaPDF( imgPDF: string, cameraInput?: string) {
               accept="image/*"
               id="cameraInput"
               style={{ display: "none" }}
-              onChange={(e) => handleCameraPhoto(currentDestinazione.imgPDF, e)}
+              onChange={(e) => 
+                handleCameraPhoto(currentDestinazione.imgPDF, e)
+              }
             />
+            {pdfUrl && (
+              <>
+                {document.body.classList.remove("no-scroll")}
+
+                <div className="voucher-confirm">
+                  <p>Foto caricata! ✅</p>
+                  <button onClick={openVoucherTab}>Apri il voucher</button>
+                </div>
+              </>
+            )}
 
 
             <button
