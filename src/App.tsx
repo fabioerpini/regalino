@@ -16,7 +16,7 @@ function App() {
         { name: 'Friends', emoji: '☕' }
       ],
       date: [
-        { start: '11/03/2026', end: '18/05/2026' }
+        { start: '17/03/2026', end: '24/03/2026' }
       ],
       img: `${import.meta.env.BASE_URL}londra.png`,
       imgPDF: `${import.meta.env.BASE_URL}londra_pdf.png`,
@@ -31,8 +31,8 @@ function App() {
         { name: 'Relax', emoji: '😌' },
       ],
       date: [
-        { start: '09/05/2026', end: '16/05/2026' },
-        { start: '09/05/2026', end: '16/05/2026' },
+        { start: '13/05/2026', end: '22/05/2026' },
+        { start: '28/05/2026', end: '04/06/2026' },
       ],
       img: `${import.meta.env.BASE_URL}tenerife.png`,
       imgPDF: `${import.meta.env.BASE_URL}tenerife_pdf.png`,
@@ -47,8 +47,8 @@ function App() {
         { name: 'Divertimento', emoji: '🎉' },
       ],
       date: [
-        { start: '09/05/2026', end: '16/05/2026' },
-        { start: '09/05/2026', end: '16/05/2026' },
+        { start: '11/01/2026', end: '18/01/2026' },
+        { start: '02/02/2026', end: '09/02/2026' },
       ],
       img: `${import.meta.env.BASE_URL}amsterdam.png`,
       imgPDF: `${import.meta.env.BASE_URL}amsterdam_pdf.png`,
@@ -63,8 +63,8 @@ function App() {
         { name: 'Baciuski', emoji: '💋' },
       ],
       date: [
-        { start: '09/05/2026', end: '16/05/2026' },
-        { start: '09/05/2026', end: '16/05/2026' },
+        { start: '30/01/2026', end: '06/02/2026' },
+        { start: '26/03/2026', end: '01/04/2026' },
       ],
       img: `${import.meta.env.BASE_URL}madrid.png`,
       imgPDF: `${import.meta.env.BASE_URL}madrid_pdf.png`,
