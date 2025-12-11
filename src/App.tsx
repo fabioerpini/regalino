@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import './App.css';
-import { base } from 'framer-motion/client';
 
 function App() {
   const [active, setActive] = useState<boolean | null>(null);
