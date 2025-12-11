@@ -260,7 +260,7 @@ function openVoucherTab() {
                 document.getElementById('cameraInput')?.click();
               }}
             >
-              Scarica il tuo voucher 🎟️
+              Scatta foto per il voucher 🎟️
             </button>
             <input
               type="file"
@@ -287,6 +287,7 @@ function openVoucherTab() {
               onClick={() => {
                 setSelectedDestinazione(null);
                 setActive(true);
+                 setPdfUrl(null);
               }}
             >
               Torna alla selezione
