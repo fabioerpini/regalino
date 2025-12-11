@@ -123,7 +123,7 @@ async function generaPDF( imgPDF: string, cameraInput?: string) {
 
   doc.addImage(imgPDF, 'JPEG', 0, 0, 210, 297);
   if (cameraInput) {
-    doc.addImage(cameraInput, 'JPEG', 68, 131, 75, 70, undefined, undefined, 90);
+    doc.addImage(cameraInput, 'JPEG', 68, 131, 75, 70);
 
   }
   
