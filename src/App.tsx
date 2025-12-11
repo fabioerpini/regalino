@@ -78,7 +78,7 @@ function App() {
         { start: '09/05/2026', end: '16/05/2026' },
         { start: '09/05/2026', end: '16/05/2026' },
       ],
-      img: `${import.meta.env.BASE_URL}tenerife.jpg`,
+      img: `${import.meta.env.BASE_URL}tenerife.png`,
       imgPDF: `${import.meta.env.BASE_URL}tenerife_pdf.png`,
       passportRequired: false,
     },
@@ -94,7 +94,7 @@ function App() {
         { start: '09/05/2026', end: '16/05/2026' },
         { start: '09/05/2026', end: '16/05/2026' },
       ],
-      img: `${import.meta.env.BASE_URL}amsterdam.jpg`,
+      img: `${import.meta.env.BASE_URL}amsterdam.png`,
       imgPDF: `${import.meta.env.BASE_URL}amsterdam_pdf.png`,
       passportRequired: false,
     },
@@ -110,7 +110,7 @@ function App() {
         { start: '09/05/2026', end: '16/05/2026' },
         { start: '09/05/2026', end: '16/05/2026' },
       ],
-      img: `${import.meta.env.BASE_URL}madrid.jpg`,
+      img: `${import.meta.env.BASE_URL}madrid.png`,
       imgPDF: `${import.meta.env.BASE_URL}madrid_pdf.png`,
       passportRequired: false,
     },
@@ -119,7 +119,7 @@ function App() {
       titolo: 'Altro',
       tags: [{ name: 'Sorpresa', emoji: '🎁' }],
       date: [],
-      img: `${import.meta.env.BASE_URL}sorpresa.jpg`,
+      img: `${import.meta.env.BASE_URL}altro.png`,
       imgPDF: `${import.meta.env.BASE_URL}altro_pdf.png`,
       passportRequired: false,
     },
@@ -208,11 +208,11 @@ function App() {
             style={{ backgroundImage: `url(${currentDestinazione.img})` }}>
           </div>
 
-          <h3 className="handwriting" style={{
+          <h3 className="handwriting" style={{color: 'white',
             textShadow: '2px 2px 20px rgba(255, 255, 255, 0.7)',
           }}>Hai scelto</h3>
 
-          <h1 className="handwriting"style={{
+          <h1 className="handwriting"style={{color: 'white',
             textShadow: '2px 2px 20px rgba(255, 255, 255, 0.7)',
           }}>{currentDestinazione.titolo}</h1>
 
